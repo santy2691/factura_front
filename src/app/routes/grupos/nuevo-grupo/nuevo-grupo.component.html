@@ -1,0 +1,15 @@
+<app-modal-ok [isActive]="estaActivoModal" (darClick)="cerrarModal()" [mensaje]="'se a creado el grupo con exito'"></app-modal-ok>
+
+<div class="d-flex flex-wrap justify-content-center align-items-center" style="width: 100%; height: 100vh">
+    <form [formGroup]="grupoForm">
+        <div style="max-width: 400px;">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">nombre del grupo</label>
+                <input formControlName="nombreGrupoForm" type="text" class="form-control" id="nombreGrupo" name="nombreGrupo" placeholder="nombre"  [(ngModel)]="this.grupo.nombreGrupo"/>
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <button (click)="this.sumit()" type="button" class="btn btn-primary">crear grupo</button>
+            </div>
+        </div>
+    </form>
+</div>

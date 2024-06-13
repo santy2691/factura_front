@@ -1,0 +1,33 @@
+<div class="d-flex flex-wrap pt-5 justify-content-center" style="width: 100%; height: 100vh">
+    <div class="card" style="min-width: 350px;">
+        <div class="card-body mt-5">
+            <div class="d-flex justify-content-between">
+                <div class=" d-flex align-items-center">
+                    <div>
+                        <p style="font-weight: var(--base-text-weight-semibold, 600);">Grupos</p>
+                    </div>  
+                </div>
+                <div class="">
+                    <a type="button" href="{{ this.rutas.nuevogrupo }}" class="btn btn-primary"           
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                    nuevo grupo
+                </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"></span>
+                    <input type="text" placeholder="find groups..." class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+            </div>
+            <div class="row pt-2">
+                @for (grupo of grupos; track grupo.idGrupo) {
+                    <a href="groups/group/{{grupo.idGrupo}}">{{grupo.nombreGrupo}}</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 ms-5 flex-grow-1" >
+        <h3>home</h3>
+    </div>
+</div>

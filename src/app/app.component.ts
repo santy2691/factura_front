@@ -1,13 +1,17 @@
+import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
+import { TuiRootModule, TuiDialogModule, TuiAlertModule, TUI_SANITIZER, TuiButtonModule } from "@taiga-ui/core";
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NavegationComponent } from "./shared/component/navegation/navegation.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterOutlet, TuiRootModule, TuiDialogModule, TuiAlertModule, NavegationComponent]
 })
 export class AppComponent {
   title = 'facturas_front';

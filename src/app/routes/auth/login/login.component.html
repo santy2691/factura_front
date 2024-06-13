@@ -1,0 +1,45 @@
+
+<tui-root>
+  <div class="component_login container d-flex justify-content-center align-items-center">
+    <div class="">
+      @if (this.error != null && this.error.length > 0) {
+      <div class="msj-error py-2" style="width: 28rem;">
+        <tui-notification status="error" [hasIcon]="false" (close)="onClose()">
+          {{ this.error }}
+        </tui-notification>
+      </div>
+      }
+      <div class="card" style="width: 28rem;">
+        <div class="card-body">
+          <form [formGroup]="loginForm" class="b-form">
+            <div class="flex-col">
+              <div>
+                <h1 class="text-center text-lg">login</h1>
+              </div>
+              <div>
+                <label class="text-lg" for="email">email</label>
+                <tui-input formControlName="emailForm" [(ngModel)]="this.data.email">
+                  Type an email
+                  <input tuiTextfield type="email" />
+                </tui-input>
+                <tui-error [error]="tuiErrorEmail"></tui-error>
+              </div>
+              <div class="mt-6 py-3">
+                <label class="text-lg" for="password">password</label>
+                <tui-input-password formControlName="passwordForm" [(ngModel)]="this.data.password">Type a
+                  password</tui-input-password>
+                <tui-error [error]="tuiErrorPassword"></tui-error>
+              </div>
+              <div class="mt-6 d-flex justify-content-center">
+                <button (click)="this.submit()" appearance="primary" tuiButton type="button"
+                  class="tui-space_right-3 tui-space_bottom-3">
+                  iniciar sesion
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</tui-root>

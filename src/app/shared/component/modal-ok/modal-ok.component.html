@@ -1,0 +1,17 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-body text-center d-flex flex-column">
+          <div>
+            <img src="/assets/images/comprobado.png" alt="" width="50" height="44">
+          </div>
+          <div class="mt-3"><p>{{this.mensaje}}</p></div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" (click)="cerrar()" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

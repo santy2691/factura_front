@@ -1,0 +1,14 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+
+.component_login{
+  height: 80vh;
+  width: 100%;
+}
+
+.msj-error{
+  width: 420px;
+}
+
+
+

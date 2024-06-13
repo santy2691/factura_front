@@ -1,0 +1,45 @@
+<div class="container pt-5" style="width: 100%; height: 100vh;">
+  <div class=" pt-5" >
+    <div class="text-center">
+        <h1>FACTURAS</h1>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="demo-table">
+        <!-- numero factura -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+      
+        <!-- descripcion factura -->
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef>monto</th>
+          <td mat-cell *matCellDef="let element"><a href="">{{element.monto}}</a></td>
+        </ng-container>
+      
+        <!-- Monto factura -->
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>descripcion</th>
+          <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+        </ng-container>
+      
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    <div>
+        <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="totalFacturas"
+               [disabled]="disabled"
+               [showFirstLastButtons]="showFirstLastButtons"
+               [pageSizeOptions]="false ? pageSizeOptions : [10]"
+               [hidePageSize]="hidePageSize"
+               [pageIndex]="pageIndex"
+               aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>
+</div>
+
+
