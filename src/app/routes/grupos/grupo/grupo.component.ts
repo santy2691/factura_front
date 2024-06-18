@@ -1,74 +1,35 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FacturasService } from '../../../core/services/facturas.service';
-import { catchError, map, startWith, switchMap, } from 'rxjs';
-import { Factura } from '../../../core/models/facturas';
-
+import { ListaFacturasComponent } from '../lista-facturas/lista-facturas.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter} from '@angular/material/core';
+import{MatCheckboxModule} from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-grupo',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule],
+  providers: [{provide: DateAdapter, useClass: NativeDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}],
+  imports: [ ListaFacturasComponent, MatFormFieldModule, MatInputModule, MatDatepickerModule,FormsModule, MatCheckboxModule],
   templateUrl: './grupo.component.html',
   styleUrl: './grupo.component.css'
 })
 export class GrupoComponent {
-  displayedColumns: string[] = ['position', 'monto','descripcion'];
-  facturas: Factura[];
-  dataSource = new MatTableDataSource<Factura>();
-  clickedRows = new Set<Factura>();
 
-  totalFacturas:number;
-  pageSize = 10;
-  pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
+  nombre:string;
 
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
 
-  pageEvent: PageEvent;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private facturaService:FacturasService){
-
   }
 
-  ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = "elementos por pagina:"
-    this.dataSource.paginator = this.paginator;
-    this.paginator.page.pipe(
-      startWith({}),
-      switchMap(()=>{
-        return this.getTableData$(this.paginator.pageIndex,this.paginator.pageSize)
-      }),
-      map((data)=>{
-        console.log(data)
-        if (data == null) return null
-        this.totalFacturas = data.totalElements
-        return data.content;
-      })
-    ).subscribe((resp:Factura[])=>{
-      console.log(resp);
-      this.facturas = resp;
-      this.dataSource =new MatTableDataSource(this.facturas);
-    })
-    
-  }
+  imprimir(){
+    console.log(this.nombre)
+  };
 
-  getTableData$(pageNumber: number, pageSize: number) {
-    return this.facturaService.getFacturasPag(pageNumber, pageSize);
-  }
-
-  handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.totalFacturas = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
-  }
 
 }
