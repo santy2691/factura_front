@@ -1,5 +1,5 @@
-<div class="container pt-5" style="width: 100%; height: 100vh">
-    <div class="pt-5">
+<div class="container " style="width: 100%;">
+    <div>
       <table mat-table [dataSource]="dataSource" class="demo-table">
 
           <ng-container matColumnDef="select">
@@ -11,8 +11,8 @@
     </th>
     <td mat-cell *matCellDef="let row">
       <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)">
+                    (change)="$event ? selection.toggle(row.id) : null"
+                    [checked]="selection.isSelected(row.id)">
       </mat-checkbox>
     </td>
   </ng-container>
@@ -26,7 +26,7 @@
         <ng-container matColumnDef="monto">
           <th mat-header-cell *matHeaderCellDef>monto</th>
           <td mat-cell *matCellDef="let element">
-            <a href="">{{ element.monto }}</a>
+            <p href="">{{ element.monto }}</p>
           </td>
         </ng-container>
   
@@ -47,12 +47,15 @@
           [length]="totalFacturas"
           [disabled]="disabled"
           [showFirstLastButtons]="showFirstLastButtons"
-          [pageSizeOptions]="false ? pageSizeOptions : [10]"
+          [pageSizeOptions]="false ? pageSizeOptions : [5]"
           [hidePageSize]="hidePageSize"
           [pageIndex]="pageIndex"
           aria-label="Select page"
         >
         </mat-paginator>
+      </div>
+      <div>
+        <!--<paginacion-numeros (totalCount)="totalFacturas" [pageSize]="pageIndex" [rulerLength]="pageIndex"></paginacion-numeros> -->
       </div>
     </div>
   </div>

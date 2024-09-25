@@ -1,3 +1,4 @@
+import { Grupo } from "./Grupo";
 import { Usuario } from "./usuario";
 
 export class Factura {
@@ -6,4 +7,7 @@ export class Factura {
     monto:number;
     fechaCreacion: Date;
     usuario: Usuario;
+    idGrupo: number;
+    grupo: Grupo;
+    fechaFactura: Date;
 }

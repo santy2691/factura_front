@@ -40,4 +40,13 @@ export class GruposService {
   getGrupoUsuarioToken() {
     return this.http.get<Grupo[]>(`${this.url}/grupo/grupos`);
   }
+
+  /**
+   * metodo para solicitar un grupo por id de grupo
+   * @param idGrupo 
+   * @returns grupo solicitado 
+   */
+  getGrupoPorId(idGrupo: string) {
+    return this.http.get<Grupo>(`${this.url}/grupo/${idGrupo}`);
+  }
 }

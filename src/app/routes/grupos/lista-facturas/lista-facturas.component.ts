@@ -7,11 +7,13 @@ import { Observable, map, startWith, switchMap } from 'rxjs';
 import { FacturasService } from '../../../core/services/facturas.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NumberInput } from '@angular/cdk/coercion';
+import { PaginacionNumerosComponent } from '../../../shared/component/paginacion-numeros/paginacion-numeros.component';
 
 @Component({
   selector: 'app-lista-facturas',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule,MatCheckboxModule],
+  imports: [MatTableModule, MatPaginatorModule,MatCheckboxModule, PaginacionNumerosComponent],
   templateUrl: './lista-facturas.component.html',
   styleUrl: './lista-facturas.component.css'
 })
@@ -20,10 +22,10 @@ export class ListaFacturasComponent {
   facturas: Factura[];
   dataSource = new MatTableDataSource<Factura>();
   clickedRows = new Set<Factura>();
-  selection = new SelectionModel<Factura>(true, [],true,(otherValue,value)=>otherValue.id == value.id);
+  selection = new SelectionModel<number>(true, []);
 
   totalFacturas:number;
-  pageSize = 10;
+  pageSize = 2;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
 
@@ -34,6 +36,8 @@ export class ListaFacturasComponent {
   pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  
+  @Input() idGrupo: number;
 
   constructor(private facturaService:FacturasService){}
 
@@ -43,10 +47,9 @@ export class ListaFacturasComponent {
     this.paginator.page.pipe(
       startWith({}),
       switchMap(()=>{
-        return this.getTableData$(this.paginator.pageIndex,this.paginator.pageSize)
+        return this.getTableData$(this.paginator.pageIndex,this.paginator.pageSize, this.idGrupo)
       }),
       map((data)=>{
-        console.log(data)
         if (data == null) return null
         this.totalFacturas = data.totalElements
         return data.content;
@@ -59,8 +62,8 @@ export class ListaFacturasComponent {
     
   }
 
-  getTableData$(pageNumber: number, pageSize: number): Observable<any> {
-    return this.facturaService.getFacturasPag(pageNumber, pageSize);
+  getTableData$(pageNumber: number, pageSize: number, idGrupo:number): Observable<any> {
+    return this.facturaService.getFacturasUsuarioYGrupoPag(pageNumber, pageSize, idGrupo);
   }
 
   handlePageEvent(e: PageEvent) {
@@ -73,7 +76,7 @@ export class ListaFacturasComponent {
   isAllSelected() {
     let numSelected = 0; 
     this.dataSource.data.forEach((data)=>{
-      if (this.selection.selected.some((elemento)=> elemento.id == data.id)) numSelected++;
+      if (this.selection.selected.some((elemento)=> elemento == data.id)) numSelected++;
     });
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
@@ -81,8 +84,8 @@ export class ListaFacturasComponent {
 
   masterToggle() {
     this.isAllSelected() ?
-        this.dataSource.data.forEach(row => this.selection.deselect(row)) :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+        this.dataSource.data.forEach(row => this.selection.deselect(row.id)) :
+        this.dataSource.data.forEach(row => this.selection.select(row.id));
   }
 
 }
