@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Factura } from '../../../core/models/facturas';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -20,6 +20,7 @@ export class NuevaFacturaComponent implements OnInit{
   formModal: any;
   @Input() isActive : BehaviorSubject<boolean>;
   @Input() grupo: Grupo;
+  @Output() eventoFacturaGuradad: EventEmitter<Factura> = new EventEmitter<Factura>();
   isActiveObs: Observable<boolean>;
   factura: Factura = new Factura();
   facturaForm: FormGroup;
@@ -77,6 +78,7 @@ export class NuevaFacturaComponent implements OnInit{
         next : (facturaCreada: Factura)=> {
           this.facturaForm.reset();
           this.factura = new Factura();
+          this.eventoFacturaGuradad.emit(facturaCreada);
           this.formModal.hide();
         },
         error : (e: HttpErrorResponse) =>{

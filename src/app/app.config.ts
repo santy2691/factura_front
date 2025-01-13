@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
         useFactory: initializeAppFactory,
         multi: false,
     },
-    provideAnimations()
+    provideAnimations(),
 ],
 };
 

@@ -1,30 +1,28 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Factura } from '../../../core/models/facturas';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-
-import { Observable, map, startWith, switchMap } from 'rxjs';
 import { FacturasService } from '../../../core/services/facturas.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NumberInput } from '@angular/cdk/coercion';
 import { PaginacionNumerosComponent } from '../../../shared/component/paginacion-numeros/paginacion-numeros.component';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-lista-facturas',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule,MatCheckboxModule, PaginacionNumerosComponent],
+  imports: [MatTableModule, MatPaginatorModule,MatCheckboxModule, PaginacionNumerosComponent,CurrencyPipe],
   templateUrl: './lista-facturas.component.html',
   styleUrl: './lista-facturas.component.css'
 })
 export class ListaFacturasComponent {
   displayedColumns: string[] = ['select','position', 'monto','descripcion'];
-  facturas: Factura[];
+  @Input() facturas: Factura[];
   dataSource = new MatTableDataSource<Factura>();
   clickedRows = new Set<Factura>();
   selection = new SelectionModel<number>(true, []);
 
-  totalFacturas:number;
+  @Input() totalFacturas:number;
   pageSize = 2;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
@@ -36,35 +34,24 @@ export class ListaFacturasComponent {
   pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
-  @Input() idGrupo: number;
+  @Output() cambiarPagina: EventEmitter<any> = new EventEmitter<any>(); 
 
   constructor(private facturaService:FacturasService){}
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = "elementos por pagina:"
     this.dataSource.paginator = this.paginator;
-    this.paginator.page.pipe(
-      startWith({}),
-      switchMap(()=>{
-        return this.getTableData$(this.paginator.pageIndex,this.paginator.pageSize, this.idGrupo)
-      }),
-      map((data)=>{
-        if (data == null) return null
-        this.totalFacturas = data.totalElements
-        return data.content;
-      })
-    ).subscribe((resp:Factura[])=>{
-      console.log(resp);
-      this.facturas = resp;
-      this.dataSource =new MatTableDataSource(this.facturas);
-    })
-    
+    this.buscar();
   }
 
-  getTableData$(pageNumber: number, pageSize: number, idGrupo:number): Observable<any> {
-    return this.facturaService.getFacturasUsuarioYGrupoPag(pageNumber, pageSize, idGrupo);
+  buscar() {
+    this.cambiarPagina.emit({pageIndex: this.paginator.pageIndex,pageSize: this.paginator.pageSize});
   }
+
+  recargarTabla() {
+    this.dataSource = new MatTableDataSource(this.facturas);
+  }
+
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;

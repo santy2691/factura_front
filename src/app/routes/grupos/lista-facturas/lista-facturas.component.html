@@ -4,7 +4,7 @@
 
           <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="$event ? masterToggle() : null"
+      <mat-checkbox  (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()">
       </mat-checkbox>
@@ -26,7 +26,7 @@
         <ng-container matColumnDef="monto">
           <th mat-header-cell *matHeaderCellDef>monto</th>
           <td mat-cell *matCellDef="let element">
-            <p href="">{{ element.monto }}</p>
+            <p href="">{{ element.monto | currency:'EUR' }}</p>
           </td>
         </ng-container>
   
