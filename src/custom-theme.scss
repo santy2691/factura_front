@@ -12,15 +12,15 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$facturas_front-primary: mat.define-palette(mat.$indigo-palette);
-$facturas_front-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
+$facturas_front-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+$facturas_front-accent: mat.m2-define-palette(mat.$m2-blue-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$facturas_front-warn: mat.define-palette(mat.$red-palette);
+$facturas_front-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$facturas_front-theme: mat.define-light-theme((
+$facturas_front-theme: mat.m2-define-light-theme((
   color: (
     primary: $facturas_front-primary,
     accent: $facturas_front-accent,
