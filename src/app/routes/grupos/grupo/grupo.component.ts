@@ -21,7 +21,7 @@ import { Factura } from '../../../core/models/facturas';
     providers: [{ provide: DateAdapter, useClass: NativeDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
     imports: [ListaFacturasComponent, MatFormFieldModule, MatInputModule, MatDatepickerModule, FormsModule,
-        MatCheckboxModule, NotFoundComponent, NuevaFacturaComponent, AsyncPipe],
+        MatCheckboxModule, NuevaFacturaComponent],
     templateUrl: './grupo.component.html',
     styleUrl: './grupo.component.css'
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Grupo } from '../../../core/models/Grupo';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GruposService } from '../../../core/services/grupos.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalOkComponent } from '../../../shared/component/modal-ok/modal-ok.component';

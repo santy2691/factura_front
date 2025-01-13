@@ -1,5 +1,5 @@
 import { TuiRootModule } from "@taiga-ui/core";
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
+import { APP_ID, ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     importProvidersFrom(TuiRootModule),
     {
-        provide: APP_INITIALIZER,
+        provide: APP_ID,
         useFactory: initializeAppFactory,
         multi: false,
     },

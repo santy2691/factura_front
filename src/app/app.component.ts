@@ -10,7 +10,7 @@ import { NavegationComponent } from "./shared/component/navegation/navegation.co
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterOutlet, TuiRootModule, TuiDialogModule, TuiAlertModule, NavegationComponent]
+    imports: [RouterOutlet, NavegationComponent]
 })
 export class AppComponent {
   title = 'facturas_front';
