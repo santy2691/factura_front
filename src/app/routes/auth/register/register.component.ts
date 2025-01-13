@@ -9,11 +9,10 @@ import { AuthenticationResponseModel } from '../../../core/models/Authentication
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+    selector: 'app-register',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 

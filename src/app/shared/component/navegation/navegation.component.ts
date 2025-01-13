@@ -10,18 +10,17 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../../routes/RoutesConst';
 
 @Component({
-  selector: 'app-navegation',
-  standalone: true,
-  imports: [TuiAvatarModule],
-  templateUrl: './navegation.component.html',
-  styleUrl: './navegation.component.css',
-  providers: [
-    tuiAvatarOptionsProvider({
-      size: 's',
-      autoColor: true,
-      rounded: true,
-    }),
-  ],
+    selector: 'app-navegation',
+    imports: [TuiAvatarModule],
+    templateUrl: './navegation.component.html',
+    styleUrl: './navegation.component.css',
+    providers: [
+        tuiAvatarOptionsProvider({
+            size: 's',
+            autoColor: true,
+            rounded: true,
+        }),
+    ]
 })
 export class NavegationComponent {
   usuario: Usuario;

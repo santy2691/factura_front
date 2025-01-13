@@ -17,14 +17,13 @@ import { Factura } from '../../../core/models/facturas';
 
 
 @Component({
-  selector: 'app-grupo',
-  standalone: true,
-  providers: [{provide: DateAdapter, useClass: NativeDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}],
-  imports: [ListaFacturasComponent, MatFormFieldModule, MatInputModule, MatDatepickerModule, FormsModule, 
-    MatCheckboxModule, NotFoundComponent, NuevaFacturaComponent,AsyncPipe ],
-  templateUrl: './grupo.component.html',
-  styleUrl: './grupo.component.css'
+    selector: 'app-grupo',
+    providers: [{ provide: DateAdapter, useClass: NativeDateAdapter },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
+    imports: [ListaFacturasComponent, MatFormFieldModule, MatInputModule, MatDatepickerModule, FormsModule,
+        MatCheckboxModule, NotFoundComponent, NuevaFacturaComponent, AsyncPipe],
+    templateUrl: './grupo.component.html',
+    styleUrl: './grupo.component.css'
 })
 export class GrupoComponent {
 

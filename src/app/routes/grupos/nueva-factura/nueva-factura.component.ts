@@ -9,11 +9,10 @@ import { Grupo } from '../../../core/models/Grupo';
 declare var window: any;
 
 @Component({
-  selector: 'app-nueva-factura',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './nueva-factura.component.html',
-  styleUrl: './nueva-factura.component.css'
+    selector: 'app-nueva-factura',
+    imports: [ReactiveFormsModule],
+    templateUrl: './nueva-factura.component.html',
+    styleUrl: './nueva-factura.component.css'
 })
 export class NuevaFacturaComponent implements OnInit{
 

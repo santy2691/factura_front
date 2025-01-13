@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'paginacion-numeros',
-  standalone: true,
-  imports: [],
-  templateUrl: './paginacion-numeros.component.html',
-  styleUrl: './paginacion-numeros.component.css'
+    selector: 'paginacion-numeros',
+    imports: [],
+    templateUrl: './paginacion-numeros.component.html',
+    styleUrl: './paginacion-numeros.component.css'
 })
 export class PaginacionNumerosComponent {
   maxPages: number = 0;

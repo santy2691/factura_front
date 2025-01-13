@@ -4,11 +4,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 declare var window: any;
 
 @Component({
-  selector: 'app-modal-ok',
-  standalone: true,
-  imports: [],
-  templateUrl: './modal-ok.component.html',
-  styleUrl: './modal-ok.component.css'
+    selector: 'app-modal-ok',
+    imports: [],
+    templateUrl: './modal-ok.component.html',
+    styleUrl: './modal-ok.component.css'
 })
 export class ModalOkComponent {
 

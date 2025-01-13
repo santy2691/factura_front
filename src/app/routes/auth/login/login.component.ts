@@ -24,25 +24,24 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationResponseModel } from '../../../core/models/AuthenticationResponseModel';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [TuiRootModule, TuiInputModule, TuiInputPasswordModule, 
-    ReactiveFormsModule,TuiButtonModule, TuiErrorModule, 
-    TuiFieldErrorPipeModule, CommonModule, TuiNotificationModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
-  providers: [
-    tuiInputPasswordOptionsProvider({
-      icons: {
-        hide: 'tuiIconEyeOff',
-        show: 'tuiIconEye',
-      },
-    }),
-    {
-      provide: TUI_PASSWORD_TEXTS,
-      useValue: of(['']),
-    },
-  ],
+    selector: 'app-login',
+    imports: [TuiRootModule, TuiInputModule, TuiInputPasswordModule,
+        ReactiveFormsModule, TuiButtonModule, TuiErrorModule,
+        TuiFieldErrorPipeModule, CommonModule, TuiNotificationModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    providers: [
+        tuiInputPasswordOptionsProvider({
+            icons: {
+                hide: 'tuiIconEyeOff',
+                show: 'tuiIconEye',
+            },
+        }),
+        {
+            provide: TUI_PASSWORD_TEXTS,
+            useValue: of(['']),
+        },
+    ]
 })
 export class LoginComponent {
 

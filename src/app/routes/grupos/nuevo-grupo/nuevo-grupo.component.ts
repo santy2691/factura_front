@@ -9,11 +9,10 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../RoutesConst';
 
 @Component({
-  selector: 'app-nuevo-grupo',
-  standalone: true,
-  imports: [ReactiveFormsModule,ModalOkComponent],
-  templateUrl: './nuevo-grupo.component.html',
-  styleUrl: './nuevo-grupo.component.css'
+    selector: 'app-nuevo-grupo',
+    imports: [ReactiveFormsModule, ModalOkComponent],
+    templateUrl: './nuevo-grupo.component.html',
+    styleUrl: './nuevo-grupo.component.css'
 })
 export class NuevoGrupoComponent {
 

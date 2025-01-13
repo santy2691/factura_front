@@ -9,11 +9,10 @@ import { PaginacionNumerosComponent } from '../../../shared/component/paginacion
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-lista-facturas',
-  standalone: true,
-  imports: [MatTableModule, MatPaginatorModule,MatCheckboxModule, PaginacionNumerosComponent,CurrencyPipe],
-  templateUrl: './lista-facturas.component.html',
-  styleUrl: './lista-facturas.component.css'
+    selector: 'app-lista-facturas',
+    imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, PaginacionNumerosComponent, CurrencyPipe],
+    templateUrl: './lista-facturas.component.html',
+    styleUrl: './lista-facturas.component.css'
 })
 export class ListaFacturasComponent {
   displayedColumns: string[] = ['select','position', 'monto','descripcion'];

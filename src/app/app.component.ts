@@ -8,7 +8,6 @@ import { NavegationComponent } from "./shared/component/navegation/navegation.co
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterOutlet, TuiRootModule, TuiDialogModule, TuiAlertModule, NavegationComponent]
