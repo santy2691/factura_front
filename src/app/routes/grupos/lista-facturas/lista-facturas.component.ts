@@ -6,16 +6,17 @@ import { FacturasService } from '../../../core/services/facturas.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PaginacionNumerosComponent } from '../../../shared/component/paginacion-numeros/paginacion-numeros.component';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
     selector: 'app-lista-facturas',
-    imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, CurrencyPipe],
+    imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, CurrencyPipe, DatePipe],
     templateUrl: './lista-facturas.component.html',
     styleUrl: './lista-facturas.component.css'
 })
 export class ListaFacturasComponent {
-  displayedColumns: string[] = ['select','position', 'monto','descripcion'];
+  displayedColumns: string[] = ['select','position', 'monto','descripcion', 'fecha'];
   @Input() facturas: Factura[];
   dataSource = new MatTableDataSource<Factura>();
   clickedRows = new Set<Factura>();
