@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Factura } from '../../../core/models/facturas';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FacturasService } from '../../../core/services/facturas.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Grupo } from '../../../core/models/Grupo';
+import { DatePipe } from '@angular/common';
 
 declare var window: any;
 
@@ -14,7 +15,7 @@ declare var window: any;
     templateUrl: './nueva-factura.component.html',
     styleUrl: './nueva-factura.component.css'
 })
-export class NuevaFacturaComponent implements OnInit{
+export class NuevaFacturaComponent implements OnInit, OnDestroy{
 
   formModal: any;
   @Input() isActive : BehaviorSubject<boolean>;
@@ -24,17 +25,18 @@ export class NuevaFacturaComponent implements OnInit{
   factura: Factura = new Factura();
   facturaForm: FormGroup;
 
-  constructor(private facturaService: FacturasService) {}
+  constructor(private facturaService: FacturasService) {
+    this.facturaService.getFacturaObs().subscribe({
+      next: (factura: Factura)=>{
+        this.factura = factura;
+        this.initForm(this.factura)
+      }
+    })
+  }
 
   ngOnInit(): void {
-    this.factura.grupo = this.grupo;
-    this.factura.idGrupo = this.grupo != null ? this.grupo.idGrupo : null;
     this.isActiveObs = this.isActive.asObservable(); 
-    this.facturaForm = new FormGroup({
-      descripcionForm: new FormControl('',Validators.required),
-      montoForm: new FormControl('',Validators.required),
-      fechaForm: new FormControl('',Validators.required)
-    });
+    this.initForm(this.factura);
 
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('staticBackdrop')
@@ -46,6 +48,23 @@ export class NuevaFacturaComponent implements OnInit{
         this.formModal?.hide();
       }    
     })
+  }
+
+  initForm(factura: any) {
+    if (!this.factura.id) {
+      this.factura.grupo = this.grupo;
+      this.factura.idGrupo = this.grupo != null ? this.grupo.idGrupo : null;
+    }
+    let fecha: string = factura.fechaFactura != null ? factura.fechaFactura.slice(0,10) : null;
+    this.facturaForm = new FormGroup({
+      descripcionForm: new FormControl(factura.descripcion,Validators.required),
+      montoForm: new FormControl(factura.monto,Validators.required),
+      fechaForm: new FormControl(fecha,Validators.required)
+    });
+  }
+
+  ngOnDestroy(): void {
+     
   }
 
   /**
@@ -73,10 +92,11 @@ export class NuevaFacturaComponent implements OnInit{
    */
   guardarFactura() {
     if (this.facturaForm.valid) {
-      this.facturaService.nuevaFactura(this.factura).subscribe({
+      let factura = this.crearFactura();
+      this.facturaService.nuevaFactura(factura).subscribe({
         next : (facturaCreada: Factura)=> {
           this.facturaForm.reset();
-          this.factura = new Factura();
+          this.facturaService.setFacturaObs(new Factura());
           this.eventoFacturaGuradad.emit(facturaCreada);
           this.formModal.hide();
         },
@@ -87,6 +107,19 @@ export class NuevaFacturaComponent implements OnInit{
     } else {
       alert("no es valida");
     }
+  }
 
+  crearFactura() {
+    let factura: Factura = new Factura();
+    factura.id = this.factura.id;
+    factura.idGrupo = this.factura.idGrupo;
+    factura.descripcion = this.facturaForm.get('descripcionForm').value;
+    factura.monto = this.facturaForm.get('montoForm').value;
+    factura.fechaFactura = new Date(this.facturaForm.get('fechaForm').value);
+    return factura;
+  }
+
+  cerrarModal() {
+    this.facturaService.setFacturaObs(new Factura());
   }
 }

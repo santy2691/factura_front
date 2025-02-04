@@ -7,7 +7,7 @@
       }
     </div>
     <div class="d-flex justify-content-center">
-      <h1>a</h1>
+      <h1>crear componente con grafico</h1>
     </div>
     <div class="text-center">
       <h3>FACTURAS</h3>  
@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-success" (click)="activarModel()">agregar factura</button>
       </div>
       <div class="col-md-12">
-        <app-lista-facturas   (cambiarPagina)="buscar($event)"></app-lista-facturas>
+        <app-lista-facturas   (cambiarPagina)="buscar($event)" (editarFacturaEvent)="editarFactura()"></app-lista-facturas>
       </div>
     </div>
 

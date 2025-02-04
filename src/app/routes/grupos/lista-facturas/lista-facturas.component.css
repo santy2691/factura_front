@@ -1,0 +1,11 @@
+.ti-trash-filled {
+    color: red;
+} 
+
+.ti-pencil {
+    color: green;
+}
+
+span:hover {
+    cursor:pointer;
+}

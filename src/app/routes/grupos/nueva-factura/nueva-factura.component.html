@@ -2,27 +2,31 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Nueva Factura</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          @if (this.factura.id) {
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Factura</h1>
+          } @else {
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Nueva Factura</h1>
+          }
+          <button (click)="cerrarModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form [formGroup]="facturaForm">
           <div class="modal-body">
             <div class="row">
               <div class="col-md-12">
                 <label for="descripcion:" class="form-label">Descripcion</label>
-                <input class="form-control" formControlName="descripcionForm" [(ngModel)]="this.factura.descripcion" id="descripcion" placeholder="Descripcion...">
+                <input class="form-control" formControlName="descripcionForm" id="descripcion" placeholder="Descripcion...">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 mt-3">
                 <label for="monto:" class="form-label">monto</label>
-                <input class="form-control" formControlName="montoForm" [(ngModel)]="this.factura.monto" id="monto" placeholder="Monto">
+                <input class="form-control" formControlName="montoForm"  id="monto" placeholder="Monto">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 mt-3">
                 <label for="Fecha de compra:" class="form-label">Fecha</label>
-                <input type="date" class="form-control" formControlName="fechaForm" [(ngModel)]="this.factura.fechaFactura" id="fecha" placeholder="dd/mm/yyyy" [min]="this.getMinDate()" [max]="this.getMAxDate()">
+                <input type="date" class="form-control" formControlName="fechaForm" id="fecha" placeholder="dd/mm/yyyy" [min]="this.getMinDate()" [max]="this.getMAxDate()">
               </div>
             </div>
             <div class="row">

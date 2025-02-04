@@ -6,14 +6,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter} from '@angular/material/core';
 import{MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
-import { NotFoundComponent } from "../../error/not-found/not-found.component";
 import { NuevaFacturaComponent } from "../nueva-factura/nueva-factura.component";
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { Grupo } from '../../../core/models/Grupo';
 import { FacturasService } from '../../../core/services/facturas.service';
-import { Factura } from '../../../core/models/facturas';
 
 
 @Component({
@@ -44,6 +41,8 @@ export class GrupoComponent {
   }
 
   ngOnInit(){
+    const buttonElement = document.activeElement as HTMLElement; // Get the currently focused element
+    buttonElement.blur(); // Remove focus from the button
   }
 
   imprimir(){
@@ -62,6 +61,11 @@ export class GrupoComponent {
         this.listaFacturaComponent.recargarTabla();
       }
     })
+  }
+
+  editarFactura() {
+    console.log("editar factura");
+    this.activarModel();
   }
 
   nuevaFactura() {

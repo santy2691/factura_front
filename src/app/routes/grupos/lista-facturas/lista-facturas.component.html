@@ -40,7 +40,15 @@
           <th mat-header-cell *matHeaderCellDef>fecha</th>
           <td mat-cell *matCellDef="let element">{{ element.fechaFactura | date:"dd/MM/yyyy" }}</td>
         </ng-container>
-  
+        <ng-container matColumnDef="otros">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div  class="d-flex justify-content-around">
+              <span (click)="eliminarFactura(element)"><i class="ti ti-trash-filled fs-5"></i></span>
+              <span (click)="editarFactura(element)" > <i class="ti ti-pencil fs-5"></i></span>
+            </div>
+          </td>
+        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>

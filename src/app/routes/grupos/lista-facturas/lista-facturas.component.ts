@@ -5,9 +5,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { FacturasService } from '../../../core/services/facturas.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { PaginacionNumerosComponent } from '../../../shared/component/paginacion-numeros/paginacion-numeros.component';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { DateAdapter } from '@angular/material/core';
 
 @Component({
     selector: 'app-lista-facturas',
@@ -16,7 +14,7 @@ import { DateAdapter } from '@angular/material/core';
     styleUrl: './lista-facturas.component.css'
 })
 export class ListaFacturasComponent {
-  displayedColumns: string[] = ['select','position', 'monto','descripcion', 'fecha'];
+  displayedColumns: string[] = ['select','position', 'monto','descripcion', 'fecha', 'otros'];
   @Input() facturas: Factura[];
   dataSource = new MatTableDataSource<Factura>();
   clickedRows = new Set<Factura>();
@@ -35,6 +33,7 @@ export class ListaFacturasComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() cambiarPagina: EventEmitter<any> = new EventEmitter<any>(); 
+  @Output() editarFacturaEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private facturaService:FacturasService){}
 
@@ -50,6 +49,11 @@ export class ListaFacturasComponent {
 
   recargarTabla() {
     this.dataSource = new MatTableDataSource(this.facturas);
+  }
+
+  editarFactura(element: Factura) {
+    this.facturaService.setFacturaObs(element);
+    this.editarFacturaEvent.emit();
   }
 
 
@@ -73,6 +77,19 @@ export class ListaFacturasComponent {
     this.isAllSelected() ?
         this.dataSource.data.forEach(row => this.selection.deselect(row.id)) :
         this.dataSource.data.forEach(row => this.selection.select(row.id));
+  }
+
+  eliminarFactura(element: Factura) {
+    console.log("entra");
+    this.facturaService.deleteFactura(element.id).subscribe({
+      next : (resp)=>{
+        console.log(resp);
+        this.buscar();
+      },
+      error : (error)=>{
+        console.log(error);
+      }
+    });
   }
 
 }

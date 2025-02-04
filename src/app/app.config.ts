@@ -9,6 +9,9 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptor/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { AuthService } from "./core/services/auth.service";
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+
 
 /**
  * funcion inicial de la app
@@ -22,6 +25,7 @@ function initializeAppFactory(): void {
     inject(AuthService).logout();
   }
 }
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +41,14 @@ export const appConfig: ApplicationConfig = {
         useFactory: initializeAppFactory,
         multi: false,
     },
+    providePrimeNG({
+      theme: {
+          preset: Aura,
+          options: {
+            darkModeSelector: '.my-app-dark'
+        }  
+      }
+  }),
     provideAnimations(),
 ],
 };

@@ -1,0 +1,12 @@
+<p-table [value]="facturas()">
+    <ng-template #header>
+    </ng-template>
+    <ng-template #body let-factura>
+        <tr>
+            <td>{{ factura.fechaCreacion | moment}}</td>
+            <td>{{ factura.descripcion }}</td>
+            <td>{{ factura.monto | currency:'EUR'}}</td>
+            <td>link</td>
+        </tr>
+    </ng-template>
+</p-table>
