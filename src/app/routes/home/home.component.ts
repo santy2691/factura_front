@@ -7,23 +7,28 @@ import { TablaFacturasComponent } from "../../shared/component/tabla-facturas/ta
 import { Factura } from '../../core/models/facturas';
 import { FacturasService } from '../../core/services/facturas.service';
 import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { MenuModule } from 'primeng/menu';
+import { ButtonModule } from 'primeng/button';
 import { GraficoComponent } from '../../shared/component/grafico/grafico.component';
+import { TablaGruposComponent } from "../../shared/component/tabla-grupos/tabla-grupos.component";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
-    imports: [TablaFacturasComponent,CardModule,CardModule, GraficoComponent],
+    imports: [ CardModule, CardModule, GraficoComponent, TablaGruposComponent, TablaGruposComponent, PanelModule, MenuModule, ButtonModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
-  grupos: Grupo[];
+  grupos: Grupo[] = [];
   facturas : Factura[] = [];
   rutas = {
     nuevogrupo: ROUTES.NEW_GROUPS
   };
 
-  constructor(private grupoService: GruposService, private facturasServices : FacturasService) {}
+  constructor(private grupoService: GruposService, private facturasServices : FacturasService, private router: Router) {}
 
   ngOnInit():void {
     this.grupoService.getGrupoUsuarioToken().subscribe({
@@ -38,7 +43,29 @@ export class HomeComponent {
     this.facturasServices.getFacturasPag(0,5).subscribe({
       next: (resp)=>{
         this.facturas = resp.content;
+      },
+      error : (e: HttpErrorResponse) =>{
+        console.log(e);
       }
     });
+
+    this.grupoService.getGrupoUsuarioToken().subscribe({
+      next:(resp) => {
+        if (resp) {
+          this.grupos = resp;
+        }
+      },
+      error : (e: HttpErrorResponse) =>{
+        console.log(e);
+      }
+    })
+  }
+
+  nuevoGrupo() {
+    this.router.navigateByUrl(this.rutas.nuevogrupo);
+  }
+
+  irAGrupo(idGrupo: number) {
+    this.router.navigateByUrl(`groups/group/${idGrupo}`);
   }
 }

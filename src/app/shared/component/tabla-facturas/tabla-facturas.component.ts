@@ -12,6 +12,8 @@ import { MomentPipe } from '../../../core/pipes/moment.pipe';
 })
 export class TablaFacturasComponent {
   facturas = input<Factura[]>();
+  isDelete = input<boolean>(true);
+  isClick = input<boolean>(true);
 
   constructor(){}
 

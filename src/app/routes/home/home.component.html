@@ -1,13 +1,30 @@
 
-<div class="row" style="max-height: 100px; margin-top: 80px;">
-    <div class="col-md-5">
-        <p-card [style]="{ height: '22rem', overflow: 'hidden' }">
-            <app-grafico></app-grafico>
-        </p-card> 
-    </div>
+<div class="row" style="max-height: 100px; margin-top: 80px; max-width: 100%; padding-left: 20px;">
     <div class="col-md-7">
-        <p-card header="ultimas facturas" [style]="{ height: '22rem', overflow: 'hidden' }">
-            <app-tabla-facturas [facturas]="this.facturas"></app-tabla-facturas> 
-        </p-card> 
+        <p-panel  [style]="{ height: '22rem', overflow: 'hidden' }">
+            <app-grafico></app-grafico>
+        </p-panel> 
+    </div>
+    <div class="col-md-5">
+        <p-panel  [style]="{ height: '22rem', overflow: 'hidden' }">
+            <app-tabla-grupos [grupos]="grupos" (clickFlecha)="irAGrupo($event)"></app-tabla-grupos>
+            <ng-template #header>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold">Grupos</span>
+                </div>
+            </ng-template>
+            <ng-template #icons>
+                <button pButton pRipple type="button" icon="pi pi-plus-circle" [rounded]="true" [text]="true"
+                    (click)="nuevoGrupo()">
+                </button>
+            </ng-template>
+        </p-panel> 
+    </div>
+    <div class="col-md-12 mt-3">
+        <p-card [style]="{ height: '22rem', overflow: 'hidden' }">
+            <!--
+            <app-tabla-facturas [facturas]="this.facturas" [isDelete]="false"></app-tabla-facturas> 
+            -->
+        </p-card>
     </div>
 </div>
