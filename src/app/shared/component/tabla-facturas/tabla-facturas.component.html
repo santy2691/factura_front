@@ -7,16 +7,18 @@
             <td>{{ factura.descripcion }}</td>
             <td>{{ factura.monto | currency:'EUR'}}</td>
             <td>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-evenly">
                     @if (isDelete()) {
-                        <span>
-                            <i class="pi  pi-trash" style="font-size: 1rem; color: red"></i>
-                        </span>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            text rounded severity="secondary" [style]="{ color: 'red' }"
+                            size="large" (click)="this.eliminarFactura(factura)">
+                        </button>
                     }
                     @if (isClick()) {
-                        <span>
-                            <i class="pi pi-arrow-circle-right" style="font-size: 1rem; color: green"></i>
-                        </span>
+                        <button pButton pRipple type="button" icon="pi pi-arrow-circle-right"
+                            text rounded severity="secondary" [style]="{ color: 'green' }"
+                            size="large">
+                        </button>
                     }
                 </div>
             </td>

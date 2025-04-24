@@ -9,7 +9,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-lista-facturas',
-    imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule, CurrencyPipe, DatePipe],
+    imports: [],
     templateUrl: './lista-facturas.component.html',
     styleUrl: './lista-facturas.component.css'
 })
@@ -31,20 +31,17 @@ export class ListaFacturasComponent {
   disabled = false;
   pageEvent: PageEvent;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() cambiarPagina: EventEmitter<any> = new EventEmitter<any>(); 
   @Output() editarFacturaEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private facturaService:FacturasService){}
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = "elementos por pagina:"
-    this.dataSource.paginator = this.paginator;
     this.buscar();
   }
 
   buscar() {
-    this.cambiarPagina.emit({pageIndex: this.paginator.pageIndex,pageSize: this.paginator.pageSize});
+    //this.cambiarPagina.emit({pageIndex: this.paginator.pageIndex,pageSize: this.paginator.pageSize});
   }
 
   recargarTabla() {

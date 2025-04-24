@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
-    imports: [ CardModule, CardModule, GraficoComponent, TablaGruposComponent, TablaGruposComponent, PanelModule, MenuModule, ButtonModule],
+    imports: [ CardModule, GraficoComponent, TablaGruposComponent, TablaGruposComponent, PanelModule, MenuModule, ButtonModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
