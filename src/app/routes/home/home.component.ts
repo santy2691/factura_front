@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, contentChild } from '@angular/core';
 import { ROUTES } from '../RoutesConst';
 import { Grupo } from '../../core/models/Grupo';
 import { GruposService } from '../../core/services/grupos.service';
@@ -13,6 +13,8 @@ import { ButtonModule } from 'primeng/button';
 import { GraficoComponent } from '../../shared/component/grafico/grafico.component';
 import { TablaGruposComponent } from "../../shared/component/tabla-grupos/tabla-grupos.component";
 import { Router } from '@angular/router';
+import { EstadisticaGrupoFacturas } from '../../core/models/estadisticaGrupoFacturas';
+import { Estadistica } from '../../shared/component/grafico/estadistica';
 
 @Component({
     selector: 'app-home',
@@ -24,9 +26,13 @@ export class HomeComponent {
 
   grupos: Grupo[] = [];
   facturas : Factura[] = [];
+  estadisticas: Estadistica[] = [];
+  estadisticasGruposFacturas: EstadisticaGrupoFacturas[] = [];
   rutas = {
     nuevogrupo: ROUTES.NEW_GROUPS
   };
+
+  readonly graficoChildren = contentChild(GraficoComponent);
 
   constructor(private grupoService: GruposService, private facturasServices : FacturasService, private router: Router) {}
 
@@ -58,7 +64,24 @@ export class HomeComponent {
       error : (e: HttpErrorResponse) =>{
         console.log(e);
       }
-    })
+    });
+
+    this.facturasServices.getEstadisticasGruposFacturas().subscribe({
+      next: (resp) => {
+        this.estadisticasGruposFacturas= resp;
+        this.estadisticas = this.parseEstadisticasGruposFacturas(this.estadisticasGruposFacturas);
+      },
+      error : (e: HttpErrorResponse) =>{
+        console.log(e);
+      }
+    });
+  }
+
+  parseEstadisticasGruposFacturas(estadisticas: EstadisticaGrupoFacturas[]): Estadistica[] {
+    return estadisticas.map((estadistica: EstadisticaGrupoFacturas) => ({
+      titulo: estadistica.nombreGrupo,
+      valor: estadistica.totalMonto      
+    }));
   }
 
   nuevoGrupo() {

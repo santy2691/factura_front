@@ -25,8 +25,14 @@
             </div>
             <div class="row">
               <div class="col-md-12 mt-3">
-                <label for="Fecha de compra:" class="form-label">Fecha</label>
-                <input type="date" class="form-control" formControlName="fechaForm" id="fecha" placeholder="dd/mm/yyyy" [min]="this.getMinDate()" [max]="this.getMAxDate()">
+                <div class="row">
+                  <div class="col-12">
+                    <label for="Fecha de compra:" class="form-label">Fecha</label>
+                  </div>
+                  <div class="col-12">
+                    <p-datepicker [style]="{ width: '100%' }"formControlName="fechaForm" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" [maxDate]="this.maxDate" [minDate]="this.minDate" />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">

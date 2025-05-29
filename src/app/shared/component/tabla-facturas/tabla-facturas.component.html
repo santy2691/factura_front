@@ -17,7 +17,7 @@
                     @if (isClick()) {
                         <button pButton pRipple type="button" icon="pi pi-arrow-circle-right"
                             text rounded severity="secondary" [style]="{ color: 'green' }"
-                            size="large">
+                            size="large" (click)="this.editarFactura(factura)">
                         </button>
                     }
                 </div>

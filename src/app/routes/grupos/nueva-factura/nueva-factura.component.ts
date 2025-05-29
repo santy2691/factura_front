@@ -6,12 +6,13 @@ import { FacturasService } from '../../../core/services/facturas.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Grupo } from '../../../core/models/Grupo';
 import { DatePipe } from '@angular/common';
+import { DatePickerModule } from 'primeng/datepicker';
 
 declare var window: any;
 
 @Component({
     selector: 'app-nueva-factura',
-    imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule,DatePickerModule],
     templateUrl: './nueva-factura.component.html',
     styleUrl: './nueva-factura.component.css'
 })
@@ -24,6 +25,8 @@ export class NuevaFacturaComponent implements OnInit, OnDestroy{
   isActiveObs: Observable<boolean>;
   factura: Factura = new Factura();
   facturaForm: FormGroup;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(private facturaService: FacturasService) {
     this.facturaService.getFacturaObs().subscribe({
@@ -35,6 +38,8 @@ export class NuevaFacturaComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    this.maxDate = this.getMAxDate();
+    this.minDate = this.getMinDate();
     this.isActiveObs = this.isActive.asObservable(); 
     this.initForm(this.factura);
 
@@ -55,7 +60,7 @@ export class NuevaFacturaComponent implements OnInit, OnDestroy{
       this.factura.grupo = this.grupo;
       this.factura.idGrupo = this.grupo != null ? this.grupo.idGrupo : null;
     }
-    let fecha: string = factura.fechaFactura != null ? factura.fechaFactura.slice(0,10) : null;
+    let fecha: Date = factura.fechaFactura != null ? new Date(factura.fechaFactura) : null;
     this.facturaForm = new FormGroup({
       descripcionForm: new FormControl(factura.descripcion,Validators.required),
       montoForm: new FormControl(factura.monto,Validators.required),
@@ -74,7 +79,7 @@ export class NuevaFacturaComponent implements OnInit, OnDestroy{
   getMinDate() {
     let fecha = new Date();
     fecha.setFullYear(fecha.getFullYear() -1);
-    return fecha.toISOString().slice(0,10);
+    return fecha;
   }
 
 
@@ -83,7 +88,7 @@ export class NuevaFacturaComponent implements OnInit, OnDestroy{
    * @returns string con la fecha maxima aceptada 
    */
   getMAxDate() {
-    return new Date().toISOString().slice(0,10);
+    return new Date();
   }
 
 

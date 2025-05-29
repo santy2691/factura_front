@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Factura } from '../models/facturas';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { EstadisticaGrupoFacturas } from '../models/estadisticaGrupoFacturas';
 
 
 @Injectable({
@@ -40,6 +41,10 @@ export class FacturasService {
 
   deleteFactura(idFactura: number) {
     return this.http.get(`${this.url}/facturas/deleteFactura?idFactura=${idFactura}`);
+  }
+
+  getEstadisticasGruposFacturas() {
+    return this.http.get<EstadisticaGrupoFacturas[]>(`${this.url}/facturas/usuario/grupo/estadisticas`);
   }
 
 }

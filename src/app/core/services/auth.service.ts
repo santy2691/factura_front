@@ -23,11 +23,11 @@ export class AuthService {
    }
 
   Login(data: RegisterRequest): Observable<any> {
-    return this.http.post<AuthenticationResponseModel>(`${environment.url}/auth/login`, data);
+    return this.http.post<AuthenticationResponseModel>(`${environment.url}/api/auth/login`, data);
   }
 
   registrer(registrer: RegisterRequest): Observable<any> {
-    return this.http.post<AuthenticationResponseModel>(`${environment.url}/auth/registrer`, registrer);
+    return this.http.post<AuthenticationResponseModel>(`${environment.url}/api/auth/registrer`, registrer);
   }
 
   logout(): void {

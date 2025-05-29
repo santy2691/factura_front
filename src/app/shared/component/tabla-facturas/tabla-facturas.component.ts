@@ -18,6 +18,7 @@ export class TablaFacturasComponent implements OnInit {
   isDelete = input<boolean>(true);
   isClick = input<boolean>(true);
   eliminar = output<number>();
+  editar = output<Factura>();
 
   constructor(private facturaService: FacturasService){}
 
@@ -30,8 +31,7 @@ export class TablaFacturasComponent implements OnInit {
   }
 
   editarFactura(factura: Factura) {
-    // Implement the logic to edit the invoice
-    console.log('Editar factura:', factura);
+    this.editar.emit(factura);
   }
 
 }

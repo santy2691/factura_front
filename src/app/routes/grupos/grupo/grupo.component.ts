@@ -82,8 +82,8 @@ export class GrupoComponent implements OnInit {
     });
   }
 
-  editarFactura() {
-    console.log("editar factura");
+  editarFactura(factura: Factura) {
+    this.facturaService.setFacturaObs(factura);
     this.activarModel();
   }
 
